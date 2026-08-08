@@ -1,0 +1,74 @@
+{
+  "projects": [],
+  "portfolios": [
+    {
+      "id": 1,
+      "title": "NUtify",
+      "category": "Web and Mobile App",
+      "description": "A mobile application designed to streamline communication between students and professors by allowing students to set appointments based on professor availability. The system enables students to check whether a professor is available or not before scheduling a meeting, improving coordination, time management, and academic consultation efficiency",
+      "image_url": "/projects/NUtify_main_icon.png",
+      "position": "Database Engineer"
+    },
+    {
+      "id": 2,
+      "title": "Wingstop-Laravel",
+      "category": "Web App",
+      "description": "A web-based ordering system with separate user and admin dashboards. Users can browse and place orders, while administrators can manage, update, and track order statuses efficiently. The system is designed to improve order processing and user experience.",
+      "image_url": "/projects/wingstop.png",
+     "position": "Database Engineer"
+    },
+    {
+      "id": 3,
+      "title": "Washette",
+      "category": "Mobile and Web App",
+      "description": "A laundry shop web system that allows customers to track laundry status in real time and access a digital loyalty card for rewards and repeat services.",
+      "image_url": "/projects/washette.png",
+      "position": "Database Engineer"
+    },
+    {
+      "id": 4,
+      "title": "Stridencount",
+      "category": "Mobile App",
+      "description": "A fitness tracking mobile application that monitors steps, calories burned, and distance traveled. It helps users track their daily activity and fitness progress while demonstrating core Object-Oriented Programming concepts. I contributed to the development of core functionalities and ensured a smooth and user-friendly experience.",
+      "image_url": "/projects/striden.jpeg",
+      "position": "Database Engineer"
+    },
+    {
+      "id": 5,
+      "title": "Money Tracker",
+      "category": "Web and Mobile App",
+      "description": " A playful yet powerful expense tracker with a financial bestie vibe. Track your spending, analyze your habits, and get cute insights about your money - all with a beautiful glassmorphism design!",
+      "image_url": "/projects/money tracker.png",
+      "position": "Developer"
+    },
+    {
+      "id": 6,
+      "title": "Travel Route Planner",
+      "category": "Web App",
+      "description": "A beautiful and interactive web application that helps you plan your trips by combining route mapping with weather forecasts. Built with Leaflet.js and integrated with multiple APIs for seamless travel planning.",
+      "image_url": "/projects/travel.png",
+      "position": "Developer"
+    },
+
+    {
+      "id": 7,
+      "title": "PhotoBooth",
+      "category": "Mobile and Web App",
+      "description": "A fun, interactive photo booth mobile web app that captures 4-photo strips with automatic countdown, filters, stickers, and customizable styles.",
+      "image_url": "/projects/photobooth.png",
+      "position": "Developer"
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Networking-Information Technology Specialist",
+      "issuer": "Certiport - 2025",
+      "image": "/certs/certiport.png"
+    },
+    {
+      "title": "IC3 Digital Literacy Certification LEVEL 1",
+      "issuer": "Certiport - 2024",
+      "image": "/certs/ic3.png"
+    }
+  ]
+}
