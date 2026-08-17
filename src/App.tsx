@@ -17,6 +17,13 @@ type Skill = {
   percentage?: number
 }
 
+type PitchPhoto = {
+  id: number
+  src: string
+  caption: string
+  category?: 'presenting' | 'project' | 'awarding' | 'certificate'
+}
+
 export default function App() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([])
   const [skills, setSkills] = useState<Skill[]>([])
@@ -24,13 +31,41 @@ export default function App() {
   const [modal, setModal] = useState<{ title: string; description: string } | null>(null)
   const [imgError, setImgError] = useState(false)
 
+  // SPARK 2025 Competition Photos
+  const pitchPhotos: PitchPhoto[] = [
+    { 
+      id: 1, 
+      src: '/projects/NUtify_main_icon.png', 
+      caption: 'Our Project Showcase at SPARK 2025',
+      category: 'project'
+    },
+    { 
+      id: 2, 
+      src: '/img/presenting.JPG', 
+      caption: 'Presenting our project to the judges',
+      category: 'presenting'
+    },
+    { 
+      id: 3, 
+      src: '/img/awarding.JPG', 
+      caption: 'Receiving the Best Pitch Award - Client Based Category',
+      category: 'awarding'
+    },
+    { 
+      id: 4, 
+      src: '/img/cert.JPEG', 
+      caption: 'Certificate of Active Participation - SPARK 2025 Representatives',
+      category: 'certificate'
+    },
+  ]
+
   useEffect(() => {
     fetch('/project.json')
       .then(res => res.json())
       .then(d => {
         setPortfolios(Array.isArray(d.portfolios) ? d.portfolios : [])
         setSkills(Array.isArray(d.skills) ? d.skills : [])
-            setCertificates(Array.isArray(d.certificates) ? d.certificates : [])
+        setCertificates(Array.isArray(d.certificates) ? d.certificates : [])
       })
       .catch(() => {
         setPortfolios([])
@@ -59,6 +94,9 @@ export default function App() {
                 <a href="#projects" onClick={(e) => { e.preventDefault(); smoothScrollTo('projects') }}>Projects</a>
               </li>
               <li>
+                <a href="#pitch" onClick={(e) => { e.preventDefault(); smoothScrollTo('pitch') }}>SPARK 2025</a>
+              </li>
+              <li>
                 <a href="#skills" onClick={(e) => { e.preventDefault(); smoothScrollTo('skills') }}>Skills</a>
               </li>
               <li>
@@ -77,20 +115,20 @@ export default function App() {
           <section className="hero">
             <div className="hero-content">
               <span className="hero-badge">✦ INFORMATION TECHNOLOGY STUDENT</span>
-              <h1>Web Systems Developer | Data Management Specialist</h1>
-              <p>I'm Sophia — I am an Information Technology student with a passion for web development and system design. I specialize in data management and database development, consistently taking on roles such as Data Management Specialist and Database Engineer in our projects. I enjoy building applications that are not only functional and user-friendly, but also structured with well-organized and efficient data systems..</p>
+              <h1>Web Systems Developer | Database & Data Management</h1>
+              <p>I'm Sophia — I am an Information Technology student with a passion for web development and system design. I specialize in data management and database development, consistently taking on roles such as Data Management Specialist and Database Engineer in our projects. I enjoy building applications that are not only functional and user-friendly, but also structured with well-organized and efficient data systems.</p>
               <div className="btn-group">
                 <a href="#projects" className="btn-primary" onClick={(e) => { e.preventDefault(); smoothScrollTo('projects') }}>View Projects →</a>
                 <a href="#contact" className="btn-primary" style={{ background: 'transparent', color: '#2c5f8a', border: '2px solid #2c5f8a' }} onClick={(e) => { e.preventDefault(); smoothScrollTo('contact') }}>Contact Me</a>
               </div>
             </div>
             <div className="hero-image">
-                <img
-                  src="/img/IMG_5625.jpg"
-                  alt="Profile"
-                  className="hero-photo"
-                  onError={() => setImgError(true)}
-                />
+              <img
+                src="/img/IMG_5625.jpg"
+                alt="Profile"
+                className="hero-photo"
+                onError={() => setImgError(true)}
+              />
               <div style={{ fontWeight: 600, marginTop: '1rem' }}>Developer & Data Management Specialist</div>
             </div>
           </section>
@@ -105,7 +143,6 @@ export default function App() {
                   <div key={project.id} className="project-card" onClick={() => openProject(project.title, project.description)}>
                     <div className="project-img">
                       {project.image_url ? (
-                        // show image when available
                         <img
                           src={project.image_url}
                           alt={project.title}
@@ -133,16 +170,109 @@ export default function App() {
             </div>
           </div>
 
+          {/* SPARK 2025 Pitching Competition Section */}
+          <div id="pitch" className="pitch-section">
+            <h2 className="section-title">🏆 SPARK 2025: Pitching Competition</h2>
+            <div className="pitch-description">
+              <p style={{ fontSize: '1.1rem', color: '#7a4b66', maxWidth: '800px', margin: '0 auto' }}>
+                <strong>October 21-22, 2025 | Events Center, SM City Lipa</strong>
+              </p>
+              <p style={{ fontSize: '1rem', color: '#7a4b66', marginTop: '0.5rem' }}>
+                Our team proudly represented our school at the SPARK 2025: Science, Innovation, Engineering, Business, and Technology Fair. 
+                We won <strong>Best Pitch Award in the Client Based Category</strong> and received a Certificate of Active Participation as representatives.
+              </p>
+            </div>
+            <div className="pitch-grid">
+              {pitchPhotos.map((photo) => (
+                <div key={photo.id} className={`pitch-card ${photo.category}`}>
+                  <img src={photo.src} alt={photo.caption} className="pitch-img" />
+                  <div className="pitch-caption">
+                    {photo.category === 'project' && '💻 '}
+                    {photo.category === 'presenting' && '🎤 '}
+                    {photo.category === 'awarding' && '🏅 '}
+                    {photo.category === 'certificate' && '📜 '}
+                    {photo.caption}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="pitch-achievement">
+              <div className="achievement-badge">
+                <span className="achievement-icon">🏆</span>
+                <span className="achievement-text">Best Pitch Award - Client Based Category</span>
+              </div>
+              <div className="achievement-badge">
+                <span className="achievement-icon">📜</span>
+                <span className="achievement-text">Certificate of Active Participation</span>
+              </div>
+            </div>
+          </div>
+
           <div id="skills">
             <div className="skills-section">
               <h2 className="section-title" style={{ marginTop: 0 }}>SKILLS</h2>
-              <div className="skills-grid">
+              <div className="skills-grid-two-col">
                 {skills.length === 0 ? (
                   <>
-                    <span className="skill-item">Web Development(Laravel, PHP, Java, JavaScript, CSS, C++, HTML</span>
-                    <span className="skill-item">Database Management (MySQL)</span>
-                    <span className="skill-item">CRUD System Development</span>
-                    <span className="skill-item">UI/UX Design (Figma)</span>
+                    {/* Web Development */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">WEB DEVELOPMENT</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">HTML</span>
+                        <span className="skill-item">CSS</span>
+                        <span className="skill-item">JavaScript</span>
+                        <span className="skill-item">TypeScript</span>
+                        <span className="skill-item">React</span>
+                        <span className="skill-item">PHP</span>
+                        <span className="skill-item">Laravel</span>
+                      </div>
+                    </div>
+
+                    {/* Programming Languages */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">PROGRAMMING LANGUAGES</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">Java</span>
+                        <span className="skill-item">C++</span>
+                        <span className="skill-item">C#</span>
+                      </div>
+                    </div>
+
+                    {/* Database Management */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">DATABASE MANAGEMENT</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">MySQL</span>
+                        <span className="skill-item">CRUD Systems</span>
+                      </div>
+                    </div>
+
+                    {/* Mobile Development */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">MOBILE DEVELOPMENT</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">.NET MAUI</span>
+                      </div>
+                    </div>
+
+                    {/* UI/UX Design */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">UI/UX DESIGN</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">Figma</span>
+                      </div>
+                    </div>
+
+                    {/* Tools & Platforms */}
+                    <div className="skill-category">
+                      <h4 className="skill-category-title">TOOLS & PLATFORMS</h4>
+                      <div className="skill-tags">
+                        <span className="skill-item">Git</span>
+                        <span className="skill-item">GitHub</span>
+                        <span className="skill-item">VS Code</span>
+                        <span className="skill-item">Xcode</span>
+                      </div>
+                    </div>
                   </>
                 ) : (
                   skills.map(sk => (
@@ -187,7 +317,35 @@ export default function App() {
 
       <footer>
         <div className="container">
-          <p>© 2026 Sophia Marie — Built with React, TypeScript & ❤️ | Student Portfolio</p>
+          <div className="footer-content">
+            <p className="footer-text">© 2026 Sophia Marie — Built with React, & TypeScript| Student Portfolio</p>
+            <div className="footer-socials">
+              <a 
+                href="https://github.com/sophiamarieramos" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="footer-link"
+                aria-label="GitHub"
+              >
+                <svg className="footer-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.15 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.62.24 2.85.12 3.15.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/sophia-marie-ramos-997775360/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="footer-link"
+                aria-label="LinkedIn"
+              >
+                <svg className="footer-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
 
